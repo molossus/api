@@ -53,11 +53,13 @@ ALTER TABLE ONLY transaction_statuses ALTER COLUMN id SET DEFAULT nextval('trans
 --
 -- Transactions - Individual Line Item Entry Records
 --
+CREATE TYPE transaction_type AS ENUM ('debit', 'credit');
 CREATE TABLE transactions (
 	id integer PRIMARY KEY,
 	name character varying NOT NULL CHECK (name <> ''),
 	occurred_on date NOT NULL,
 	status_id integer NOT NULL REFERENCES transaction_statuses (id),
+	type transaction_type NOT NULL,
 	amount decimal(8,2) NOT NULL
 );
 CREATE SEQUENCE IF NOT EXISTS transactions_id_seq
