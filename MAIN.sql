@@ -60,11 +60,12 @@ CREATE TABLE transactions (
 	id uuid default uuid_generate_v4() PRIMARY KEY,
 	name character varying NOT NULL CHECK (name <> ''),
 	occurred_on date NOT NULL,
+	amount decimal(8,2) NOT NULL,
 	transaction_status_id uuid NOT NULL REFERENCES transaction_statuses (id),
 	account_id uuid NOT NULL REFERENCES accounts (id),
-	type transaction_type NOT NULL,
 	entered_at timestamptz NOT NULL DEFAULT now(),
-	amount decimal(8,2) NOT NULL
+	type transaction_type NOT NULL,
+	tag_id uuid NOT NULL REFERENCES tags (id)
 );
 
 --
@@ -75,7 +76,6 @@ CREATE TABLE tags (
 	name character varying NOT NULL CHECK (name <> ''),
 	description text NOT NULL CHECK (description <> ''),
 	entered_at timestamptz NOT NULL DEFAULT now(),
-	active boolean NOT NULL DEFAULT true
 );
 
 --
