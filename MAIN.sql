@@ -79,9 +79,9 @@ CREATE TABLE tags (
 );
 
 --
--- Goals -
+-- Milestones - Targeted fund goals
 --
-CREATE TABLE goals (
+CREATE TABLE milestones (
 	id uuid default uuid_generate_v4() PRIMARY KEY,
 	name character varying NOT NULL CHECK (name <> ''),
 	description text NOT NULL CHECK (description <> ''),
