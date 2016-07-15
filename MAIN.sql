@@ -87,6 +87,7 @@ CREATE TABLE goals (
 	description text NOT NULL CHECK (description <> ''),
 	due_date date NOT NULL CHECK (due_date >= CURRENT_DATE),
 	entered_at timestamptz NOT NULL DEFAULT now(),
+	account_id uuid NOT NULL REFERENCES accounts (id),
 	tag_id uuid NOT NULL REFERENCES tags (id)
 );
 
