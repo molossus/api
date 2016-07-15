@@ -32,6 +32,15 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 COMMENT ON EXTENSION "uuid-ossp" IS 'UUID Generation Framework';
 
 --
+-- Accounts - Logical grouping of transactions
+--
+CREATE TABLE accounts (
+	id uuid default uuid_generate_v4() PRIMARY KEY,
+	name character varying NOT NULL CHECK (name <> ''),
+	description text NOT NULL CHECK (description <> '')
+);
+
+--
 -- TransactionStatus - State Machine
 --
 CREATE TABLE transaction_statuses (
@@ -50,6 +59,7 @@ CREATE TABLE transactions (
 	name character varying NOT NULL CHECK (name <> ''),
 	occurred_on date NOT NULL,
 	transaction_status_id uuid NOT NULL REFERENCES transaction_statuses (id),
+	account_id uuid NOT NULL REFERENCES accounts (id),
 	type transaction_type NOT NULL,
 	amount decimal(8,2) NOT NULL
 );
