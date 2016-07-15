@@ -37,7 +37,8 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'UUID Generation Framework';
 CREATE TABLE accounts (
 	id uuid default uuid_generate_v4() PRIMARY KEY,
 	name character varying NOT NULL CHECK (name <> ''),
-	description text NOT NULL CHECK (description <> '')
+	description text NOT NULL CHECK (description <> ''),
+	entered_at timestamptz NOT NULL DEFAULT now()
 );
 
 --
@@ -47,6 +48,7 @@ CREATE TABLE transaction_statuses (
 	id uuid default uuid_generate_v4() PRIMARY KEY,
 	name character varying NOT NULL CHECK (name <> ''),
 	description text NOT NULL CHECK (description <> ''),
+	entered_at timestamptz NOT NULL DEFAULT now(),
 	active boolean NOT NULL DEFAULT true
 );
 
@@ -61,6 +63,7 @@ CREATE TABLE transactions (
 	transaction_status_id uuid NOT NULL REFERENCES transaction_statuses (id),
 	account_id uuid NOT NULL REFERENCES accounts (id),
 	type transaction_type NOT NULL,
+	entered_at timestamptz NOT NULL DEFAULT now(),
 	amount decimal(8,2) NOT NULL
 );
 
@@ -71,6 +74,7 @@ CREATE TABLE tags (
 	id uuid default uuid_generate_v4() PRIMARY KEY,
 	name character varying NOT NULL CHECK (name <> ''),
 	description text NOT NULL CHECK (description <> ''),
+	entered_at timestamptz NOT NULL DEFAULT now(),
 	active boolean NOT NULL DEFAULT true
 );
 
@@ -82,6 +86,7 @@ CREATE TABLE goals (
 	name character varying NOT NULL CHECK (name <> ''),
 	description text NOT NULL CHECK (description <> ''),
 	due_date date NOT NULL CHECK (due_date >= CURRENT_DATE),
+	entered_at timestamptz NOT NULL DEFAULT now(),
 	tag_id uuid NOT NULL REFERENCES tags (id)
 );
 
