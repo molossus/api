@@ -20,7 +20,8 @@ defmodule BalanceSheet.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", BalanceSheet do
-  #   pipe_through :api
-  # end
+  scope "/api", BalanceSheet do
+    pipe_through :api
+    resources "/accounts", AccountController, except: [:new, :edit]
+  end
 end

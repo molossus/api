@@ -36,8 +36,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :balance_sheet, BalanceSheet.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "balance_sheet_dev",
-  hostname: "localhost",
+  username: 'kristofer',
+  password: 'P4ssW0rd!?',
+  database: 'bs_development',
+  hostname: 'localhost',
   pool_size: 10

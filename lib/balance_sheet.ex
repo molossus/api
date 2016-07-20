@@ -1,6 +1,8 @@
 defmodule BalanceSheet do
   use Application
 
+  import PgExt.Enumerations
+
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
@@ -28,4 +30,6 @@ defmodule BalanceSheet do
     BalanceSheet.Endpoint.config_change(changed, removed)
     :ok
   end
+
+  defenum AccountType, :account_type, ~w'checking savings retirement'
 end
